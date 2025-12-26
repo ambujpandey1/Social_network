@@ -47,21 +47,31 @@ export const authAPI = {
    * @param {Object} userData - {email, first_name, last_name, date_of_birth, password, password2, profile_picture}
    * @returns {Promise} User data and success message
    */
-  signup: (userData) => {
-    const formData = new FormData();
-    formData.append("email", userData.email);
-    formData.append("first_name", userData.first_name);
-    formData.append("last_name", userData.last_name);
-    formData.append("date_of_birth", userData.date_of_birth);
-    formData.append("password", userData.password);
-    formData.append("password2", userData.password2);
-    if (userData.profile_picture) {
-      formData.append("profile_picture", userData.profile_picture);
-    }
-    return api.post("/accounts/signup/", formData, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
-  },
+  // signup: (userData) => {
+  //   const formData = new FormData();
+  //   formData.append("email", userData.email);
+  //   formData.append("first_name", userData.first_name);
+  //   formData.append("last_name", userData.last_name);
+  //   formData.append("date_of_birth", userData.date_of_birth);
+  //   formData.append("password", userData.password);
+  //   formData.append("password2", userData.password2);
+  //   if (userData.profile_picture) {
+  //     formData.append("profile_picture", userData.profile_picture);
+  //   }
+  //   return api.post("/accounts/signup/", formData, {
+  //     headers: { "Content-Type": "multipart/form-data" },
+  //   });
+  // },
+signup: (userData) =>
+  api.post("/accounts/signup/", {
+    email: userData.email,
+    username: userData.username,   // ✅ REQUIRED
+    first_name: userData.first_name,
+    last_name: userData.last_name,
+    date_of_birth: userData.date_of_birth,
+    password: userData.password,
+    password2: userData.password2,
+  }),
 
   /**
    * Login user and get JWT tokens
